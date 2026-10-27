@@ -1,0 +1,48 @@
+---
+// Figma: "About" panel, node 12666:7370. The four image slots (ATB 2/3/1,
+// Unleashed 1) were EMPTY frames in Figma with no fill — src paths below
+// are a best-guess mapping to existing exports in /Assets and NOT confirmed
+// against the design. Flag to Maddie before treating this as final.
+import ProjectCard from '../components/ProjectCard.astro';
+
+const cards = [
+  { src: '/Assets/Homepage ATB (1).png', alt: 'ATB project screenshot 2' },
+  { src: '/Assets/Why ATB section.png', alt: 'ATB project screenshot 3' },
+  { src: '/Assets/Homepage - ATB.png', alt: 'ATB project screenshot 1' },
+  { src: '/Assets/Homepage - Unleashed.png', alt: 'Unleashed project screenshot' },
+];
+---
+
+<section class="about">
+  <div class="about-row">
+    {cards.map((card) => (
+      <ProjectCard src={card.src} alt={card.alt} />
+    ))}
+  </div>
+</section>
+
+<style>
+  .about {
+    width: 100%;
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    justify-content: center;
+    gap: var(--space-1500);
+    padding: var(--space-200);
+    background: linear-gradient(179.48deg, var(--color-peach-50) 0.16%, var(--color-peach-100) 99.23%);
+  }
+
+  .about-row {
+    display: flex;
+    gap: var(--space-400);
+    align-items: center;
+    justify-content: center;
+    width: 100%;
+    height: 804px;
+    padding: 64px var(--padding-component-horizontal-md);
+    border-radius: var(--radius-panel);
+    background: var(--surface-accent-light);
+    overflow: clip;
+  }
+</style>

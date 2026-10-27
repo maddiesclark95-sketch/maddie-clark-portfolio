@@ -1,0 +1,26 @@
+---
+// Figma: "Featured Projects" heading, node 12666:7362.
+// NOTE: this uses a one-off 164px size seen only on that node — it doesn't
+// map to the H1/H4/H6 scale in tokens.css. Flagged as a gap (see chat):
+// confirm with Maddie whether this is a real "Display" style before reuse.
+interface Props {
+  as?: 'h1' | 'h2' | 'h3';
+}
+
+const { as: Tag = 'h2' } = Astro.props;
+---
+
+<Tag class="section-heading"><slot /></Tag>
+
+<style>
+  .section-heading {
+    font-family: var(--font-heading);
+    font-weight: 500;
+    font-size: 164.073px;
+    line-height: 164.073px;
+    letter-spacing: -4.1018px;
+    color: var(--color-maroon-700);
+    text-align: center;
+    white-space: nowrap;
+  }
+</style>

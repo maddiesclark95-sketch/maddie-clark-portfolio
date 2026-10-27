@@ -1,0 +1,21 @@
+---
+// Figma: "Work" heading block, node 12666:7354.
+import SectionHeading from '../components/SectionHeading.astro';
+---
+
+<section class="featured-projects">
+  <SectionHeading as="h2">Featured Projects</SectionHeading>
+</section>
+
+<style>
+  .featured-projects {
+    width: 100%;
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    justify-content: center;
+    gap: var(--space-1500);
+    padding: 120px var(--space-800) 40px;
+    background: var(--color-peach-50);
+  }
+</style>

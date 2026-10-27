@@ -1,0 +1,124 @@
+---
+// Figma: "Hero banner" node 12666:7326 (within Homepage node 12666:7325).
+// Pill positions/rotations are pixel values from that node, authored for a
+// 1440px-wide canvas — this section is desktop-precise but not yet
+// responsive (see gap notes in chat / tokens.css).
+import PrimaryNav from '../components/Nav/PrimaryNav.astro';
+import Pill from '../components/Pill/Pill.astro';
+import Avatar from '../components/Avatar.astro';
+
+const pills = [
+  { label: 'pixel pushing', icon: 'fluent-wand-16-filled.svg', variant: 'peach-100', rotate: -9.57, left: 193.9, top: 761.08 },
+  { label: 'creative direction', icon: 'bi-lightning-charge-fill.svg', variant: 'peach-500-brand', rotate: 1.92, left: 296.29, top: 828.07 },
+  { label: 'claude cooking', icon: 'codicon-edit-sparkle.svg', variant: 'peach-300', rotate: 31.86, left: 331.99, top: 676.51 },
+  { label: 'brand facelift', icon: 'carbon-group-objects-new.svg', variant: 'peach-500-brand', rotate: -20.47, left: 36, top: 723.92 },
+  { label: 'trend-led thinker', icon: 'charm-north-star.svg', variant: 'peach-100', rotate: -15.41, left: 575.06, top: 782.4 },
+  { label: 'UX/UI', icon: 'grommet-icons-technology.svg', variant: 'peach-100', rotate: 14.45, left: 209.8, top: 671.89 },
+  { label: 'video editor', icon: 'akar-icons-edit.svg', variant: 'peach-100', rotate: 0, left: 1048.37, top: 847.59 },
+  { label: 'final_v4_this_one', icon: 'carbon-model-content-doc.svg', variant: 'peach-500-brand', rotate: 17.22, left: 774.67, top: 723.51 },
+  { label: 'design system wiz', icon: 'fontisto-world-o.svg', variant: 'peach-700', rotate: -14.94, left: 911, top: 655 },
+  { label: 'testing', icon: 'bx-test-tube.svg', variant: 'peach-300', rotate: 0, left: 1044.5, top: 795.54 },
+  { label: 'devs best friend', icon: 'bi-emoji-smile.svg', variant: 'peach-700', rotate: 0, left: 483.16, top: 712.79 },
+  { label: 'AI video generator', icon: 'at-icons-video-camera.svg', variant: 'peach-500-brand', rotate: 32.51, left: 1099.41, top: 711.86 },
+  { label: 'motion design', icon: 'boxicons-motion-alt.svg', variant: 'peach-800', rotate: -15.49, left: 559.49, top: 745.68 },
+  { label: 'auto-layout lover', icon: 'mdi-collage.svg', variant: 'peach-800', rotate: 0, left: 774.13, top: 847.59 },
+  { label: 'prototyping', icon: 'carbon-connect.svg', variant: 'peach-800', rotate: 0, left: 100.15, top: 847.59 },
+] as const;
+---
+
+<section class="hero">
+  <img class="hero-bg-ellipse" src="/Assets/hero-background-ellipse.svg" alt="" />
+
+  <PrimaryNav />
+
+  <div class="hero-pills">
+    {pills.map((pill) => (
+      <div class="hero-pill" style={`left: ${pill.left}px; top: ${pill.top}px;`}>
+        <Pill label={pill.label} icon={pill.icon} variant={pill.variant} rotate={pill.rotate} />
+      </div>
+    ))}
+  </div>
+
+  <div class="hero-contents">
+    <div class="hero-bio">
+      <p class="hero-bio-text">Hello</p>
+      <Avatar src="/Assets/avatar-maddie.png" alt="Maddie Clark" size={40} />
+      <p class="hero-bio-text">I'm Maddie</p>
+    </div>
+    <h1 class="hero-headline">
+      Product &amp; Digital Designer with a focus on Branding &amp; Creative Direction.
+    </h1>
+  </div>
+</section>
+
+<style>
+  .hero {
+    position: relative;
+    width: 100%;
+    min-height: 900px;
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    justify-content: center;
+    gap: var(--space-1500);
+    overflow: clip;
+    padding: 180px var(--space-800) var(--padding-component-vertical-xl);
+    background: linear-gradient(to bottom, var(--surface-primary), var(--color-peach-50));
+  }
+
+  .hero-bg-ellipse {
+    position: absolute;
+    left: -127px;
+    top: -2376px;
+    width: 1698.204px;
+    height: 2544px;
+    transform: rotate(180deg);
+    pointer-events: none;
+    z-index: 0;
+  }
+
+  .hero-pills {
+    position: absolute;
+    inset: 0;
+    z-index: 1;
+  }
+
+  .hero-pill {
+    position: absolute;
+  }
+
+  .hero-contents {
+    position: relative;
+    z-index: 2;
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    gap: var(--space-200);
+    width: 100%;
+  }
+
+  .hero-bio {
+    display: flex;
+    align-items: center;
+    gap: var(--space-100);
+  }
+
+  .hero-bio-text {
+    font-family: var(--font-body);
+    font-size: var(--body-sm-size);
+    line-height: var(--body-sm-line-height);
+    color: var(--text-secondary);
+    white-space: nowrap;
+  }
+
+  .hero-headline {
+    max-width: 680px;
+    font-family: var(--font-heading);
+    font-weight: var(--h1-weight);
+    font-size: var(--h1-size);
+    line-height: var(--h1-line-height);
+    letter-spacing: var(--h1-letter-spacing);
+    color: var(--color-maroon-700);
+    text-align: center;
+  }
+</style>

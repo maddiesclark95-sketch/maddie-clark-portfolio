@@ -1,0 +1,32 @@
+---
+// Small circular profile photo. Figma: "Bio" node 12666:7348.
+interface Props {
+  src: string;
+  alt?: string;
+  size?: number;
+}
+
+const { src, alt = '', size = 40 } = Astro.props;
+---
+
+<div class="avatar" style={`--avatar-size: ${size}px;`}>
+  <img src={src} alt={alt} />
+</div>
+
+<style>
+  .avatar {
+    width: var(--avatar-size);
+    height: var(--avatar-size);
+    border-radius: var(--radius-rounded);
+    background: var(--color-peach-800);
+    overflow: hidden;
+    flex-shrink: 0;
+  }
+
+  .avatar img {
+    width: 100%;
+    height: 100%;
+    object-fit: cover;
+    object-position: bottom;
+  }
+</style>

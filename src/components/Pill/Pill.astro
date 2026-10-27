@@ -1,0 +1,60 @@
+---
+// Floating skill/keyword badge used on the hero banner.
+// Figma: "Pills" component, node e.g. 12666:7327.
+interface Props {
+  label: string;
+  /** path under /Assets/icons, e.g. "fluent-wand-16-filled.svg" */
+  icon: string;
+  /** background colour token */
+  variant?: 'peach-100' | 'peach-300' | 'peach-500-brand' | 'peach-700' | 'peach-800';
+  /** rotation in degrees, matching the hero's scattered layout */
+  rotate?: number;
+}
+
+const { label, icon, variant = 'peach-100', rotate = 0 } = Astro.props;
+
+const variantStyles: Record<string, { bg: string; text: string }> = {
+  'peach-100': { bg: 'var(--color-peach-100)', text: 'var(--text-primary)' },
+  'peach-300': { bg: 'var(--color-peach-300)', text: 'var(--text-primary)' },
+  'peach-500-brand': { bg: 'var(--color-peach-500-brand)', text: 'var(--text-primary)' },
+  'peach-700': { bg: 'var(--color-peach-700)', text: 'var(--text-primary-invert)' },
+  'peach-800': { bg: 'var(--color-peach-800)', text: 'var(--cta-primary-invert-surface)' },
+};
+
+const { bg, text } = variantStyles[variant];
+---
+
+<div class="pill" style={`--pill-bg: ${bg}; --pill-text: ${text}; --pill-rotate: ${rotate}deg;`}>
+  <p class="pill-label">{label}</p>
+  <img class="pill-icon" src={`/Assets/icons/${icon}`} alt="" />
+</div>
+
+<style>
+  .pill {
+    display: inline-flex;
+    align-items: center;
+    justify-content: center;
+    gap: 9.296px;
+    padding: 14.874px 22.311px;
+    border-radius: var(--radius-rounded);
+    background: var(--pill-bg);
+    transform: rotate(var(--pill-rotate));
+    white-space: nowrap;
+  }
+
+  .pill-label {
+    font-family: var(--font-mono);
+    font-weight: 500;
+    font-size: var(--button-lg-size);
+    line-height: var(--button-line-height);
+    letter-spacing: var(--button-letter-spacing);
+    text-transform: uppercase;
+    color: var(--pill-text);
+  }
+
+  .pill-icon {
+    width: 18.593px;
+    height: 18.593px;
+    flex-shrink: 0;
+  }
+</style>
