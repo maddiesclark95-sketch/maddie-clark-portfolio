@@ -16,6 +16,19 @@ const { title, description = 'Maddie Clark — Product & Digital Designer' } = A
     <meta name="viewport" content="width=device-width, initial-scale=1.0" />
     <meta name="description" content={description} />
     <title>{title}</title>
+    <link rel="preconnect" href="https://fonts.googleapis.com" />
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
+    <link
+      href="https://fonts.googleapis.com/css2?family=DM+Mono:wght@400;500&family=DM+Sans:wght@400;500&display=swap"
+      rel="stylesheet"
+    />
+    <!--
+      P22 Mackinac Pro (heading font) is a paid P22 Type Foundry typeface,
+      not available on Google Fonts. It's currently falling back to the
+      browser's default serif. Needs either an Adobe Fonts/Typekit embed
+      code or the purchased font files (woff2) from Maddie before this
+      matches the real design — flagged in chat.
+    -->
   </head>
   <body>
     <slot />

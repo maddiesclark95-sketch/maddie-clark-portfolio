@@ -6,17 +6,19 @@
 import ProjectCard from '../components/ProjectCard.astro';
 
 const cards = [
-  { src: '/Assets/Homepage ATB (1).png', alt: 'ATB project screenshot 2' },
-  { src: '/Assets/Why ATB section.png', alt: 'ATB project screenshot 3' },
-  { src: '/Assets/Homepage - ATB.png', alt: 'ATB project screenshot 1' },
-  { src: '/Assets/Homepage - Unleashed.png', alt: 'Unleashed project screenshot' },
+  { src: '/Assets/Homepage ATB (1).png', alt: 'ATB project screenshot 2', width: 939 },
+  { src: '/Assets/Why ATB section.png', alt: 'ATB project screenshot 3', width: 939 },
+  { src: '/Assets/Homepage - ATB.png', alt: 'ATB project screenshot 1', width: 845 },
+  { src: '/Assets/Homepage - Unleashed.png', alt: 'Unleashed project screenshot', width: 936 },
 ];
 ---
 
 <section class="about">
   <div class="about-row">
     {cards.map((card) => (
-      <ProjectCard src={card.src} alt={card.alt} />
+      <div style={`flex: ${card.width} 0 0; min-width: 0;`}>
+        <ProjectCard src={card.src} alt={card.alt} />
+      </div>
     ))}
   </div>
 </section>
