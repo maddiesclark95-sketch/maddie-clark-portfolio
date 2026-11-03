@@ -8,17 +8,23 @@ interface Props {
 const { href, active = false } = Astro.props;
 ---
 
-<a href={href} class="nav-item" class:list={{ active }}>
+<a href={href} class="nav-item" class:list={{ active }} aria-current={active ? 'page' : undefined}>
   <p class="nav-item-label"><slot /></p>
 </a>
 
 <style>
   .nav-item {
+    /* Keeps the label painting above the sliding .nav-indicator pill, which
+       is also position:absolute within the same list — positioned siblings
+       stack by DOM order, so this just needs to not be position:static. */
+    position: relative;
+    z-index: 1;
     display: flex;
     align-items: center;
     justify-content: center;
     padding: var(--space-100) var(--space-200);
     border-radius: var(--radius-rounded);
+    transition: color 0.2s ease;
   }
 
   .nav-item-label {
@@ -28,13 +34,15 @@ const { href, active = false } = Astro.props;
     letter-spacing: var(--body-sm-letter-spacing);
     color: var(--text-primary);
     white-space: nowrap;
+    transition: color 0.2s ease;
   }
 
-  .nav-item.active {
-    background: var(--color-maroon-700);
-  }
-
-  .nav-item.active .nav-item-label {
+  /*
+    No static pill, even for the active/current page (matches Figma's
+    default state exactly — every link looks plain at rest). The maroon pill
+    only ever appears via the sliding .nav-indicator on hover.
+  */
+  .nav-item:hover .nav-item-label {
     color: var(--text-primary-invert);
   }
 </style>

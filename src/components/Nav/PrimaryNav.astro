@@ -3,19 +3,22 @@
 import NavItem from './NavItem.astro';
 
 const links = [
-  { label: 'Home', href: '/', active: true },
+  { label: 'Home', href: '/' },
   { label: 'About', href: '/about' },
   { label: 'Work', href: '/work' },
   { label: 'Get in touch', href: '/contact' },
 ];
+
+const currentPath = Astro.url.pathname;
 ---
 
 <nav class="primary-nav">
   <div class="primary-nav-inner">
-    <ul class="primary-nav-list">
+    <ul class="primary-nav-list" data-primary-nav-list>
+      <li class="nav-indicator" data-nav-indicator aria-hidden="true"></li>
       {links.map((link) => (
         <li>
-          <NavItem href={link.href} active={link.active}>{link.label}</NavItem>
+          <NavItem href={link.href} active={currentPath === link.href}>{link.label}</NavItem>
         </li>
       ))}
     </ul>
@@ -40,6 +43,7 @@ const links = [
   }
 
   .primary-nav-list {
+    position: relative;
     display: flex;
     align-items: center;
     gap: var(--space-300);
@@ -50,4 +54,62 @@ const links = [
     border-radius: 10000px;
     box-shadow: 0px 7px 8.65px rgba(60, 11, 12, 0.06);
   }
+
+  /*
+    One shared pill that slides under whichever link is hovered, instead of
+    each link having its own static highlight. Positioned/sized by the script
+    below; opacity is the only thing CSS toggles on its own.
+  */
+  .nav-indicator {
+    position: absolute;
+    top: 50%;
+    left: 0;
+    width: 0;
+    height: 0;
+    background: var(--color-maroon-700);
+    border-radius: var(--radius-rounded);
+    opacity: 0;
+    pointer-events: none;
+    transform: translate(0, -50%);
+    transition:
+      transform 0.35s cubic-bezier(0.65, 0, 0.35, 1),
+      width 0.35s cubic-bezier(0.65, 0, 0.35, 1),
+      height 0.35s cubic-bezier(0.65, 0, 0.35, 1),
+      opacity 0.2s ease;
+  }
+
+  .primary-nav-list.is-tracking .nav-indicator {
+    opacity: 1;
+  }
 </style>
+
+<script>
+  function initPrimaryNavIndicator(list: HTMLUListElement) {
+    const indicator = list.querySelector<HTMLLIElement>('[data-nav-indicator]');
+    const items = Array.from(list.querySelectorAll<HTMLAnchorElement>('.nav-item'));
+    if (!indicator || items.length === 0) return;
+
+    const moveTo = (el: HTMLElement) => {
+      const listRect = list.getBoundingClientRect();
+      const itemRect = el.getBoundingClientRect();
+      indicator.style.width = `${itemRect.width}px`;
+      indicator.style.height = `${itemRect.height}px`;
+      indicator.style.transform = `translate(${itemRect.left - listRect.left}px, -50%)`;
+    };
+
+    items.forEach((item) => {
+      item.addEventListener('mouseenter', () => {
+        list.classList.add('is-tracking');
+        moveTo(item);
+      });
+    });
+
+    list.addEventListener('mouseleave', () => {
+      list.classList.remove('is-tracking');
+    });
+  }
+
+  document
+    .querySelectorAll<HTMLUListElement>('[data-primary-nav-list]')
+    .forEach(initPrimaryNavIndicator);
+</script>

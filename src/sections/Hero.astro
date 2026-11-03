@@ -1,8 +1,9 @@
 ---
 // Figma: "Hero banner" node 12666:7326 (within Homepage node 12666:7325).
 // Pill positions/rotations are pixel values from that node, authored for a
-// 1440px-wide canvas — this section is desktop-precise but not yet
-// responsive (see gap notes in chat / tokens.css).
+// 1440px-wide canvas (hero-stage below centres that canvas horizontally so
+// it isn't left-anchored beyond 1440px) — this section is desktop-precise
+// but not yet responsive (see gap notes in chat / tokens.css).
 import PrimaryNav from '../components/Nav/PrimaryNav.astro';
 import Pill from '../components/Pill/Pill.astro';
 import Avatar from '../components/Avatar.astro';
@@ -27,22 +28,24 @@ const pills = [
 ---
 
 <section class="hero">
-  <img class="hero-bg-ellipse" src="/Assets/hero-background-ellipse.svg" alt="" />
+  <div class="hero-bg-glow" aria-hidden="true"></div>
+
+  <div class="hero-stage">
+    <div class="hero-pills">
+      {pills.map((pill) => (
+        <div class="hero-pill" style={`left: ${pill.left}px; top: ${pill.top}px;`}>
+          <Pill label={pill.label} icon={pill.icon} variant={pill.variant} rotate={pill.rotate} />
+        </div>
+      ))}
+    </div>
+  </div>
 
   <PrimaryNav />
-
-  <div class="hero-pills">
-    {pills.map((pill) => (
-      <div class="hero-pill" style={`left: ${pill.left}px; top: ${pill.top}px;`}>
-        <Pill label={pill.label} icon={pill.icon} variant={pill.variant} rotate={pill.rotate} />
-      </div>
-    ))}
-  </div>
 
   <div class="hero-contents">
     <div class="hero-bio">
       <p class="hero-bio-text">Hello</p>
-      <Avatar src="/Assets/avatar-maddie.png" alt="Maddie Clark" size={40} />
+      <Avatar src="/Assets/avatar-maddie-figma.png" alt="Maddie Clark" size={40} />
       <p class="hero-bio-text">I'm Maddie</p>
     </div>
     <h1 class="hero-headline">
@@ -66,13 +69,38 @@ const pills = [
     background: linear-gradient(to bottom, var(--surface-primary), var(--color-peach-50));
   }
 
-  .hero-bg-ellipse {
+  /*
+    Pill positions/ellipse offset above are pixel values authored for a
+    1440px-wide Figma canvas. hero-stage pins that canvas to the horizontal
+    centre of the hero section (instead of its left edge) so the composition
+    stays centred rather than clipping to one side on screens wider than
+    1440px.
+  */
+  .hero-stage {
     position: absolute;
-    left: -127px;
-    top: -2376px;
-    width: 1698.204px;
-    height: 2544px;
-    transform: rotate(180deg);
+    top: 0;
+    bottom: 0;
+    left: calc(50% - 720px);
+    width: 1440px;
+  }
+
+  /*
+    A CSS radial gradient anchored at top-centre (50% 0%) instead of the
+    rotated/blurred ellipse asset — guarantees the glow sits dead-centre and
+    scales with the viewport at any width, rather than depending on matching
+    a pre-rendered raster's blur bleed to a fixed-width stage.
+  */
+  .hero-bg-glow {
+    position: absolute;
+    inset: 0;
+    background: radial-gradient(
+      ellipse 95% 760px at 50% 0%,
+      rgba(249, 110, 79, 0.85) 0%,
+      rgba(249, 110, 79, 0.45) 22%,
+      rgba(253, 226, 223, 0.3) 42%,
+      rgba(254, 243, 242, 0.14) 62%,
+      rgba(254, 243, 242, 0) 85%
+    );
     pointer-events: none;
     z-index: 0;
   }

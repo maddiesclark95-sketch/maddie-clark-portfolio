@@ -1,5 +1,7 @@
 ---
-// Small circular profile photo. Figma: "Bio" node 12666:7348.
+// Small circular profile photo. Figma: "Bio" node 12666:7348 (source image
+// asset: "Image (Maddie Clark)", node 12692:8322 — already a pre-composited
+// circular crop with correct headroom baked in, so it's rendered at 100%).
 interface Props {
   src: string;
   alt?: string;
@@ -15,6 +17,9 @@ const { src, alt = '', size = 40 } = Astro.props;
 
 <style>
   .avatar {
+    display: flex;
+    align-items: center;
+    justify-content: center;
     width: var(--avatar-size);
     height: var(--avatar-size);
     border-radius: var(--radius-rounded);
@@ -23,10 +28,13 @@ const { src, alt = '', size = 40 } = Astro.props;
     flex-shrink: 0;
   }
 
+  /* Nudged down so the top of the head clears the circle edge; the gap
+     above shows the container's peach-800, which matches the photo's own
+     background, and the overflow at the bottom is clipped by the circle. */
   .avatar img {
     width: 100%;
     height: 100%;
     object-fit: cover;
-    object-position: bottom;
+    transform: translateY(4%) scale(1.05);
   }
 </style>
