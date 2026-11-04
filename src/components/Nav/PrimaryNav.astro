@@ -28,6 +28,9 @@ const currentPath = Astro.url.pathname;
 <style>
   .primary-nav {
     position: absolute;
+    /* above the hero's full-bleed physics canvas, which would otherwise
+       swallow clicks on the links */
+    z-index: 3;
     top: 0;
     left: 0;
     width: 100%;

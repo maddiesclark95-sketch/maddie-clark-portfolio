@@ -1,0 +1,33 @@
+/* React/physics twin of Pill.astro. Rotation is driven by matter-js, so no rotate here. */
+.hero-pill {
+  display: inline-flex;
+  align-items: center;
+  justify-content: center;
+  gap: 9.296px;
+  padding: 14.874px 22.311px;
+  border-radius: var(--radius-rounded);
+  background: var(--pill-bg);
+  color: var(--pill-text);
+  white-space: nowrap;
+  user-select: none;
+}
+.hero-pill--peach-100 { --pill-bg: var(--color-peach-100); --pill-text: var(--text-primary); }
+.hero-pill--peach-300 { --pill-bg: var(--color-peach-300); --pill-text: var(--text-primary); }
+.hero-pill--peach-500-brand { --pill-bg: var(--color-peach-500-brand); --pill-text: var(--text-primary); }
+.hero-pill--peach-700 { --pill-bg: var(--color-peach-700); --pill-text: var(--text-primary-invert); }
+.hero-pill--peach-800 { --pill-bg: var(--color-peach-800); --pill-text: var(--cta-primary-invert-surface); }
+
+.hero-pill-label {
+  margin: 0;
+  font-family: var(--font-mono);
+  font-weight: 500;
+  font-size: var(--button-lg-size);
+  line-height: var(--button-line-height);
+  letter-spacing: var(--button-letter-spacing);
+  text-transform: uppercase;
+}
+.hero-pill-icon {
+  width: 18.593px;
+  height: 18.593px;
+  flex-shrink: 0;
+}
