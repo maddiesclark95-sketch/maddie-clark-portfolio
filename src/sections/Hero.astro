@@ -1,9 +1,8 @@
 ---
 // Figma: "Hero banner" node 12666:7326 (within Homepage node 12666:7325).
-// Pill data lives in src/data/heroPills.ts (pixel positions from a 1440px-wide
-// canvas); <HeroPills> drops them under gravity. hero-stage below centres that
-// canvas horizontally so it isn't left-anchored beyond 1440px — this section
-// is desktop-precise but not yet responsive (see gap notes in chat / tokens.css).
+// Pill data lives in src/data/heroPills.ts (pixel positions from a 1440×900
+// canvas); <HeroPills> maps them proportionally onto the full-bleed hero and
+// drops them under gravity. Not yet tuned for tablet/mobile.
 import PrimaryNav from '../components/Nav/PrimaryNav.astro';
 import HeroPills from '../components/Pill/HeroPills';
 import { heroPills } from '../data/heroPills';
@@ -37,7 +36,8 @@ import Avatar from '../components/Avatar.astro';
   .hero {
     position: relative;
     width: 100%;
-    min-height: 900px;
+    /* fill the screen on large displays (e.g. 16" MacBook Pro, 1728×~1000) */
+    min-height: max(900px, 100vh);
     display: flex;
     flex-direction: column;
     align-items: center;
@@ -49,18 +49,13 @@ import Avatar from '../components/Avatar.astro';
   }
 
   /*
-    Pill positions/ellipse offset above are pixel values authored for a
-    1440px-wide Figma canvas. hero-stage pins that canvas to the horizontal
-    centre of the hero section (instead of its left edge) so the composition
-    stays centred rather than clipping to one side on screens wider than
-    1440px.
+    Full-bleed physics stage. Pill start positions are converted from the
+    1440×900 Figma canvas to percentages in HeroPills, so the pile spreads
+    across the whole hero at any screen size instead of a fixed 1440 band.
   */
   .hero-stage {
     position: absolute;
-    top: 0;
-    bottom: 0;
-    left: calc(50% - 720px);
-    width: 1440px;
+    inset: 0;
   }
 
   /*
@@ -116,12 +111,13 @@ import Avatar from '../components/Avatar.astro';
     white-space: nowrap;
   }
 
+  /* 10% up on the h1 token; max-width scaled with it so line breaks match Figma */
   .hero-headline {
-    max-width: 680px;
+    max-width: calc(680px * 1.1);
     font-family: var(--font-heading);
     font-weight: var(--h1-weight);
-    font-size: var(--h1-size);
-    line-height: var(--h1-line-height);
+    font-size: calc(var(--h1-size) * 1.1);
+    line-height: calc(var(--h1-line-height) * 1.1);
     letter-spacing: var(--h1-letter-spacing);
     color: var(--color-maroon-700);
     text-align: center;

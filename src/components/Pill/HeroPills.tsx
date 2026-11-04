@@ -15,14 +15,20 @@ const PILL_HEIGHT = 52
 // padding + gap + icon, plus ~12px per uppercase DM Mono character (incl. letter-spacing)
 const estimateWidth = (label: string) => 72.5 + label.length * 12.04
 
+// Figma canvas the pill positions were authored on. Start positions are passed
+// as percentages of it so the layout stretches to fill wider/taller heroes.
+const CANVAS_WIDTH = 1440
+const CANVAS_HEIGHT = 900
+const toPercent = (px: number, total: number) => `${(px / total) * 100}%`
+
 export default function HeroPills({ pills }: { pills: readonly PillData[] }) {
   return (
     <Gravity gravity={{ x: 0, y: 1 }} resetOnResize={false}>
       {pills.map((pill) => (
         <MatterBody
           key={pill.label}
-          x={pill.left + estimateWidth(pill.label) / 2}
-          y={pill.top + PILL_HEIGHT / 2}
+          x={toPercent(pill.left + estimateWidth(pill.label) / 2, CANVAS_WIDTH)}
+          y={toPercent(pill.top + PILL_HEIGHT / 2, CANVAS_HEIGHT)}
           angle={pill.rotate}
           matterBodyOptions={{ friction: 0.3, restitution: 0.35, density: 0.001 }}
         >
