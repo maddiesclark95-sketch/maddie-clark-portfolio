@@ -1,5 +1,6 @@
 ---
 import '../styles/global.css';
+import StickyContactBar from '../components/StickyContactBar.astro';
 
 interface Props {
   title: string;
@@ -33,5 +34,6 @@ const { title, description = 'Maddie Clark — Product & Digital Designer' } = A
   </head>
   <body>
     <slot />
+    <StickyContactBar />
   </body>
 </html>
