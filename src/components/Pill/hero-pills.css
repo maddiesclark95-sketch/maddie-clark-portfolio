@@ -1,10 +1,14 @@
-/* React/physics twin of Pill.astro. Rotation is driven by matter-js, so no rotate here. */
+/* React/physics twin of Pill.astro. Rotation is driven by matter-js, so no rotate here.
+   Hero pills render 15% larger than the Figma pill (--pill-scale). This has to be
+   real sizing, not a transform: matter-js builds each body from offsetWidth/Height,
+   which ignore transforms. */
 .hero-pill {
+  --pill-scale: 1.15;
   display: inline-flex;
   align-items: center;
   justify-content: center;
-  gap: 9.296px;
-  padding: 14.874px 22.311px;
+  gap: calc(9.296px * var(--pill-scale));
+  padding: calc(14.874px * var(--pill-scale)) calc(22.311px * var(--pill-scale));
   border-radius: var(--radius-rounded);
   background: var(--pill-bg);
   color: var(--pill-text);
@@ -21,13 +25,13 @@
   margin: 0;
   font-family: var(--font-mono);
   font-weight: 500;
-  font-size: var(--button-lg-size);
-  line-height: var(--button-line-height);
-  letter-spacing: var(--button-letter-spacing);
+  font-size: calc(var(--button-lg-size) * var(--pill-scale));
+  line-height: calc(var(--button-line-height) * var(--pill-scale));
+  letter-spacing: calc(var(--button-letter-spacing) * var(--pill-scale));
   text-transform: uppercase;
 }
 .hero-pill-icon {
-  width: 18.593px;
-  height: 18.593px;
+  width: calc(18.593px * var(--pill-scale));
+  height: calc(18.593px * var(--pill-scale));
   flex-shrink: 0;
 }

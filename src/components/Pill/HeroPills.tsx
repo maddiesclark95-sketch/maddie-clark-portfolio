@@ -10,10 +10,11 @@ type PillData = {
   top: number
 }
 
-// Mirrors Pill.astro — keep the two in sync.
-const PILL_HEIGHT = 52
+// Mirrors Pill.astro × --pill-scale in hero-pills.css — keep them in sync.
+const PILL_SCALE = 1.15
+const PILL_HEIGHT = 52 * PILL_SCALE
 // padding + gap + icon, plus ~12px per uppercase DM Mono character (incl. letter-spacing)
-const estimateWidth = (label: string) => 72.5 + label.length * 12.04
+const estimateWidth = (label: string) => (72.5 + label.length * 12.04) * PILL_SCALE
 
 // Figma canvas the pill positions were authored on. Start positions are passed
 // as percentages of it so the layout stretches to fill wider/taller heroes.
