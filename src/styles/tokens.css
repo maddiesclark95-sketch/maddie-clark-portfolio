@@ -8,15 +8,18 @@
   /* Colour */
   --color-peach-50: #fef3f2;
   --color-peach-100: #fde2df;
+  --color-peach-200: #fcc7c1; /* About card back CTA */
   --color-peach-300: #fba89d;
   --color-peach-500-brand: #f96e4f;
   --color-peach-700: #853826;
   --color-peach-800: #532014;
+  --color-peach-900: #290c06; /* About card photo border */
   --color-maroon-50: #d8cece;
   --color-maroon-700: #260505;
   --color-brand-maroon: #3c0b0c; /* Figma colour/brand/maroon (sticky contact bar) */
   --color-primary-lavender-50: #fbf9fe;
   --color-primary-lavender-100: #f1e5fa;
+  --color-brand-cream: #fbf6ed;
 
   --text-primary: #202020;
   --text-primary-invert: #fbf6ed;
@@ -44,6 +47,10 @@
   --h1-line-height: 60px;
   --h1-letter-spacing: -1px;
   --h1-weight: 500;
+
+  --h1-display-size: 80px; /* About card name, off-scale in Figma */
+  --h1-display-line-height: 79.151px;
+  --h1-display-letter-spacing: -1.9788px;
 
   --h4-size: 28px;
   --h4-line-height: 36px;

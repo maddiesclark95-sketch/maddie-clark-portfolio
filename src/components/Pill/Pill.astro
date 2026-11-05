@@ -6,15 +6,20 @@ interface Props {
   /** path under /Assets/icons, e.g. "fluent-wand-16-filled.svg" */
   icon: string;
   /** background colour token */
-  variant?: 'peach-100' | 'peach-300' | 'peach-500-brand' | 'peach-700' | 'peach-800';
+  variant?: 'peach-50' | 'peach-100' | 'peach-200' | 'peach-300' | 'peach-500-brand' | 'peach-700' | 'peach-800';
   /** rotation in degrees, matching the hero's scattered layout */
   rotate?: number;
+  /** renders the pill as a link (e.g. About card CTAs) */
+  href?: string;
 }
 
-const { label, icon, variant = 'peach-100', rotate = 0 } = Astro.props;
+const { label, icon, variant = 'peach-100', rotate = 0, href } = Astro.props;
+const Tag = href ? 'a' : 'div';
 
 const variantStyles: Record<string, { bg: string; text: string }> = {
+  'peach-50': { bg: 'var(--color-peach-50)', text: 'var(--text-primary)' },
   'peach-100': { bg: 'var(--color-peach-100)', text: 'var(--text-primary)' },
+  'peach-200': { bg: 'var(--color-peach-200)', text: 'var(--text-primary)' },
   'peach-300': { bg: 'var(--color-peach-300)', text: 'var(--text-primary)' },
   'peach-500-brand': { bg: 'var(--color-peach-500-brand)', text: 'var(--text-primary)' },
   'peach-700': { bg: 'var(--color-peach-700)', text: 'var(--text-primary-invert)' },
@@ -24,10 +29,10 @@ const variantStyles: Record<string, { bg: string; text: string }> = {
 const { bg, text } = variantStyles[variant];
 ---
 
-<div class="pill" style={`--pill-bg: ${bg}; --pill-text: ${text}; --pill-rotate: ${rotate}deg;`}>
+<Tag href={href} class="pill" style={`--pill-bg: ${bg}; --pill-text: ${text}; --pill-rotate: ${rotate}deg;`}>
   <p class="pill-label">{label}</p>
   <img class="pill-icon" src={`/Assets/icons/${icon}`} alt="" />
-</div>
+</Tag>
 
 <style>
   .pill {
@@ -40,6 +45,15 @@ const { bg, text } = variantStyles[variant];
     background: var(--pill-bg);
     transform: rotate(var(--pill-rotate));
     white-space: nowrap;
+  }
+
+  a.pill {
+    transition: transform 0.4s cubic-bezier(0.22, 1, 0.36, 1);
+  }
+
+  a.pill:hover,
+  a.pill:focus-visible {
+    transform: rotate(var(--pill-rotate)) translateY(-2px);
   }
 
   .pill-label {
